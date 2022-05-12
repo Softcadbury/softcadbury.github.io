@@ -10,6 +10,6 @@ Just a simple blog where I will post some of my discoveries.
 
 This blog is generated using Jekyll. You can find the installation process here: https://jekyllrb.com/docs/
 
-#### Commands
+### Commands
 
 - Start the application: Run the command `bundle exec jekyll serve --livereload` > Then access http://localhost:4000
