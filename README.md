@@ -12,4 +12,13 @@ This blog is generated using Jekyll. You can find the installation process here:
 
 ### Commands
 
-- Start the application: Run the command `bundle exec jekyll serve --livereload` > Then access http://localhost:4000
+-   Start the application:
+    -   Run the command `bundle exec jekyll serve --livereload`
+    -   Access http://localhost:4000
+
+### Customized code
+
+-   `_includes/footer.html` > Override code from default template
+-   `_layouts/home.html` > Override code from default template
+-   `_posts/*.markdown` > All blog posts
+-   `about.markdown` & `index.markdown` > Application pages
