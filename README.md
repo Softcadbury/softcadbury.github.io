@@ -2,7 +2,7 @@
 
 ## Decription
 
-Just a simple blog where I will post some of my discoveries.
+Just a simple blog where I will post some of my discoveries, mostly about .Net.
 
 ## Development
 

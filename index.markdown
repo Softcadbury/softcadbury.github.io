@@ -1,6 +1,7 @@
 ---
-# Feel free to add content and custom Front Matter to this file.
-# To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
-
 layout: home
 ---
+
+Welcome to my blog, I will post here some of my discoveries, mostly about .Net. 
+
+You can find me on [GitHub](https://github.com/Softcadbury/) or [LinkedIn](https://www.linkedin.com/in/romain-parage-73505434/).
