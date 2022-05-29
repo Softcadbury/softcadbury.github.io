@@ -1,1 +1,1 @@
-## Example for <a href="https://softcadbury.github.io/dotnet/ef/2022/05/10/versioned-stored-procedures-with-ef.html">Versioned stored procedures with Entity Framework</a> article.
+## Example for <a href="https://softcadbury.github.io/dotnet/entity-framework/2022/05/10/versioned-stored-procedures-with-entity-framework.html">How to versioned stored procedures with Entity Framework</a> article.

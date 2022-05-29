@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "Versioned stored procedures with Entity Framework"
+title: "How to versioned stored procedures with Entity Framework"
 date: 2022-05-10 10:27:52 +0200
-categories: dotnet ef
+categories: dotnet entity-framework
 comments: true
 ---
 
