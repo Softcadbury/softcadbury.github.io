@@ -38,7 +38,7 @@ public partial class GetAllTodoItemsByStatusProc : Migration
 }
 {% endhighlight %}
 
-⚠️ Unfortunatly, there are many drawbacks to doing this:
+⛔ Unfortunatly, there are many drawbacks to doing this:
 
 -   It is just a string, so no SQL highlighting.
 -   It is easy to do a mistake when copying the code (especially when you want to update the code of an existing stored procedure).
@@ -50,7 +50,7 @@ In the following section, I will show you how I handle this in my projects.
 
 ## How to versionize stored procedures in EF
 
-You can find the full project used as example [here](https://github.com/Softcadbury/softcadbury.github.io/tree/main/examples/VersionizedStoredProcedures).
+⚠️ You can find the full project used as example [here](https://github.com/Softcadbury/softcadbury.github.io/tree/main/examples/VersionizedStoredProcedures).
 
 ### Create the EF context and an entity
 
@@ -95,7 +95,7 @@ internal enum StoredProcedures
 }
 {% endhighlight %}
 
-### Create the stored procedures SQL file
+### Create the stored procedures SQL files
 
 Create the [SQL files](https://github.com/Softcadbury/softcadbury.github.io/tree/main/examples/VersionizedStoredProcedures/VersionizedStoredProcedures/StoredProcedures/StoredProcedures) containing the code of the stored procedures. Theses files must respect a few rules:
 
@@ -211,7 +211,7 @@ public partial class UpdateStoredProcedures : Migration
 }
 {% endhighlight %}
 
-### Create the EF context to execute your stored procedures
+### Update the EF context to execute your stored procedures
 
 Add these [extentions](https://github.com/Softcadbury/softcadbury.github.io/blob/main/examples/VersionizedStoredProcedures/VersionizedStoredProcedures/Contexts/Context.cs) to your code.
 
@@ -237,7 +237,7 @@ internal static class DbContextExtensions
 }
 {% endhighlight %}
 
-Then, in your [EF context](https://github.com/Softcadbury/softcadbury.github.io/blob/main/examples/VersionizedStoredProcedures/VersionizedStoredProcedures/Contexts/Context.cs) (or a dedicated repository), call `this.ExecuteStoredProcedure` to execute stored procedures or `this.ExecuteStoredProcedure<T>` to execute stored procedures with an expected result.
+Then, in your [EF context](https://github.com/Softcadbury/softcadbury.github.io/blob/main/examples/VersionizedStoredProcedures/VersionizedStoredProcedures/Contexts/Context.cs) (or a dedicated repository), call `this.ExecuteStoredProcedure` to execute stored procedures or `this.ExecuteStoredProcedure<T>` for stored procedures returning something.
 
 {% highlight csharp %}
 public class Context : DbContext
