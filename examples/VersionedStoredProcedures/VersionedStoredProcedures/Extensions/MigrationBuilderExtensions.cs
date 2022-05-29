@@ -16,7 +16,7 @@ internal static class MigrationBuilderExtensions
     public static void CreateStoredProcedure(this MigrationBuilder migrationBuilder, StoredProcedures storedProcedure, int version)
     {
         string fullVersion = version.ToString(CultureInfo.InvariantCulture).PadLeft(2, '0');
-        string fullName = $"{storedProcedure.GetType().Namespace}.StoredProcedures.{storedProcedure}_{fullVersion}.sql";
+        string fullName = $"{storedProcedure.GetType().Namespace}.StoredProcedures.{storedProcedure}_{fullVersion}.sql"; // This line is important as it defines where the SQL scripts must be placed
         migrationBuilder.ExecuteSqlFile(fullName);
     }
 
