@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32319.34
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VersionedStoredProcedures", "VersionedStoredProcedures\VersionedStoredProcedures.csproj", "{537A141B-F56F-4394-9100-57A0C5C3797C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VersionizedStoredProcedures", "VersionizedStoredProcedures\VersionizedStoredProcedures.csproj", "{537A141B-F56F-4394-9100-57A0C5C3797C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VersionedStoredProcedures.Tests", "VersionedStoredProcedures.Tests\VersionedStoredProcedures.Tests.csproj", "{36B0415D-5451-4121-929B-7AAE231A63BB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VersionizedStoredProcedures.Tests", "VersionizedStoredProcedures.Tests\VersionizedStoredProcedures.Tests.csproj", "{36B0415D-5451-4121-929B-7AAE231A63BB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

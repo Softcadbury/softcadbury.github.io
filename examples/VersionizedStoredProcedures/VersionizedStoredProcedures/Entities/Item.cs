@@ -1,4 +1,4 @@
-﻿namespace VersionedStoredProcedures.Entities;
+﻿namespace VersionizedStoredProcedures.Entities;
 
 /// <summary>
 /// Simple entity that will represent the Items table in SQL server

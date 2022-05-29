@@ -1,10 +1,10 @@
-﻿namespace VersionedStoredProcedures.Contexts;
+﻿namespace VersionizedStoredProcedures.Contexts;
 
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using VersionedStoredProcedures.Entities;
-using VersionedStoredProcedures.Extensions;
-using VersionedStoredProcedures.StoredProcedures;
+using VersionizedStoredProcedures.Entities;
+using VersionizedStoredProcedures.Extensions;
+using VersionizedStoredProcedures.StoredProcedures;
 
 /// <summary>
 /// Entity Framework context

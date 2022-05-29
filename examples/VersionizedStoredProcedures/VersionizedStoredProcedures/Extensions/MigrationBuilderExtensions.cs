@@ -1,9 +1,9 @@
-﻿namespace VersionedStoredProcedures.Extensions;
+﻿namespace VersionizedStoredProcedures.Extensions;
 
 using System.Globalization;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore.Migrations;
-using VersionedStoredProcedures.StoredProcedures;
+using VersionizedStoredProcedures.StoredProcedures;
 
 internal static class MigrationBuilderExtensions
 {

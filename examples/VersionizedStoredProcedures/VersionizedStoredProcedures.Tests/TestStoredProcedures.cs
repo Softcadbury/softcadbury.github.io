@@ -1,13 +1,16 @@
-﻿namespace VersionedStoredProcedures.Tests;
+﻿namespace VersionizedStoredProcedures.Tests;
 
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
-using VersionedStoredProcedures.Contexts;
-using VersionedStoredProcedures.Entities;
+using VersionizedStoredProcedures.Contexts;
+using VersionizedStoredProcedures.Entities;
 
 [TestFixture]
 public class TestStoredProcedures
 {
+    // Change this connection string if you want to run tests
+    private const string ConnectionString = "Server=.;Database=VersionizedStoredProceduresExample;User ID=user id;Password=password";
+
     [SetUp]
     public async Task Setup()
     {
@@ -62,12 +65,10 @@ public class TestStoredProcedures
 
     private static Context GetEntityFrameworkContext()
     {
-        // Connection string to change if you want to run tests
-        const string connectionString = "Server=.;Database=VersionedStoredProceduresExample;User ID=user id;Password=password";
-        DbContextOptions<Context> options = new DbContextOptionsBuilder<Context>().UseSqlServer(connectionString).Options;
+        DbContextOptions<Context> options = new DbContextOptionsBuilder<Context>()
+            .UseSqlServer(ConnectionString).Options;
 
         var context = new Context(options);
-
         context.Database.Migrate();
 
         return context;

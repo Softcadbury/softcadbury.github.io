@@ -1,4 +1,4 @@
-﻿namespace VersionedStoredProcedures.Contexts;
+﻿namespace VersionizedStoredProcedures.Contexts;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
@@ -11,7 +11,7 @@ public class ContextDesignTimeFactory : IDesignTimeDbContextFactory<Context>
 {
     public Context CreateDbContext(string[] args)
     {
-        const string connectionString = "Server=.;Database=VersionedStoredProceduresExample";
+        const string connectionString = "Server=.;Database=VersionizedStoredProceduresExample";
         DbContextOptions<Context> options = new DbContextOptionsBuilder<Context>().UseSqlServer(connectionString).Options;
 
         return new Context(options);

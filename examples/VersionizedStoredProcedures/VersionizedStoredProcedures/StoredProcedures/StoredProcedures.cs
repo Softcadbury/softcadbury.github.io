@@ -1,4 +1,4 @@
-﻿namespace VersionedStoredProcedures.StoredProcedures;
+﻿namespace VersionizedStoredProcedures.StoredProcedures;
 
 internal enum StoredProcedures
 {

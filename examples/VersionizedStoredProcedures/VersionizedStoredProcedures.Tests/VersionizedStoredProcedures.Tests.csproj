@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\VersionedStoredProcedures\VersionedStoredProcedures.csproj" />
+    <ProjectReference Include="..\VersionizedStoredProcedures\VersionizedStoredProcedures.csproj" />
   </ItemGroup>
 
 </Project>

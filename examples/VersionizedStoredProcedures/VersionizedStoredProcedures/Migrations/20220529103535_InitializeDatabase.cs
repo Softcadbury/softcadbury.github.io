@@ -1,6 +1,6 @@
 ﻿#nullable disable
 
-namespace VersionedStoredProcedures.Migrations;
+namespace VersionizedStoredProcedures.Migrations;
 
 using Microsoft.EntityFrameworkCore.Migrations;
 

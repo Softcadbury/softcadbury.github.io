@@ -4,15 +4,15 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using VersionedStoredProcedures.Contexts;
+using VersionizedStoredProcedures.Contexts;
 
 #nullable disable
 
-namespace VersionedStoredProcedures.Migrations
+namespace VersionizedStoredProcedures.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20220529105558_CreateStoredProcedures")]
-    partial class CreateStoredProcedures
+    [Migration("20220529103535_InitializeDatabase")]
+    partial class InitializeDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,7 +23,7 @@ namespace VersionedStoredProcedures.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("VersionedStoredProcedures.Entities.Item", b =>
+            modelBuilder.Entity("VersionizedStoredProcedures.Entities.Item", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

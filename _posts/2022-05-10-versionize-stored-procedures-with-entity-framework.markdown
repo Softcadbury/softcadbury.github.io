@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "How to versioned stored procedures with Entity Framework"
+title: "How to versionize stored procedures with Entity Framework"
 date: 2022-05-10 10:27:52 +0200
 categories: dotnet entity-framework
 comments: true
@@ -8,19 +8,19 @@ comments: true
 
 ## Entity Framework (EF)
 
-[EF](https://docs.microsoft.com/en-us/ef/) is an awesome .Net library developed by Microsoft that allows your applications to interact with databases.
+[EF](https://docs.microsoft.com/en-us/ef/) is a fantastic .Net library developed by Microsoft that allows your applications to interact with databases.
 
-One of the best feature of the library is the possibility to [versionised](https://docs.microsoft.com/en-us/ef/core/managing-schemas/) your database. Its functioning is simple, you create classes that will represent your database tables, then generate a [migration](https://docs.microsoft.com/en-us/ef/core/managing-schemas/migrations). Once you run this migration, your database schema will be updated accordingly.
+One of the best feature of the library is the possibility to [versionize](https://docs.microsoft.com/en-us/ef/core/managing-schemas/) your database. The way it works is simple, you create classes that will represent your database tables, then generate a [migration](https://docs.microsoft.com/en-us/ef/core/managing-schemas/migrations). Once you run this migration, your database schema will be updated accordingly.
 
 In addition to this migration feature, EF provides methods to create, update and delete entities easily. Unfortunatly, nothing's perfect, an EF can suffer performance problems if you want do to complex tasks like doing bulk modifications or requests with many condiditions.
 
-To resolve these performance problems, you can use additional libraries like [this one](https://entityframework-extensions.net/bulk-insert), but for more specific cases, you will need a native SQL solution, like <a href="https://docs.microsoft.com/en-us/sql/relational-databases/stored-procedures/create-a-stored-procedure?view=sql-server-ver16">stored procedures</a>.
+To resolve these performance problems, you can use additional libraries like [this one](https://entityframework-extensions.net/bulk-insert), but for more specific cases, you will need a native SQL solution, like [stored procedures](https://docs.microsoft.com/en-us/sql/relational-databases/stored-procedures/create-a-stored-procedure?view=sql-server-ver16).
 
 ## Stored procedures in EF
 
-With EF, it's pretty easy to execute stored procedure. The complexity lies in how to versionize these stored procedure as EF doesn't provide a native solution inside its migrations.
+With EF, it's pretty easy to execute stored procedure. The complexity lies in how to versionize these stored procedures because EF doesn't provide a native solution.
 
-Migrations allows you to exceture raw SQL, so you can just copy/past the code of your stored procedures. Here's an example found <a href="https://dotnetthoughts.net/creating-stored-procs-in-efcore-migrations">on the web</a>:
+EF migrations allows you to exceture raw SQL, so you can just copy/past the code of your stored procedures. Here's an example found [on the web](https://dotnetthoughts.net/creating-stored-procs-in-efcore-migrations):
 {% highlight csharp %}
 public partial class GetAllTodoItemsByStatusProc : Migration
 {
@@ -38,20 +38,23 @@ public partial class GetAllTodoItemsByStatusProc : Migration
 }
 {% endhighlight %}
 
-⚠️ Unfortunatly, there are many downside to doing that:
+⚠️ Unfortunatly, there are many drawbacks to doing this:
 
--   It is just a string, so no SQL hightlithing.
+-   It is just a string, so no SQL highlighting.
 -   It is easy to do a mistake when copying the code (especially when you want to update the code of an existing stored procedure).
 -   When updating the code of a stored procedure, it's hard to see modifications with GIT (no great for people doing reviews).
 
 In the following section, I will show you how I handle this in my projects.
-I won't address views or functions in this article, but the principle is exaclty the same.
 
-## How to versioned stored procedures in EF
+ℹ️ I won't address SQL views or SQL functions in this article, but you can use the same principle.
 
-You can see the example project <a href="https://github.com/Softcadbury/softcadbury.github.io/tree/main/examples/VersionedStoredProcedures">here</a>.
+## How to versionize stored procedures in EF
 
-### Create the <a href="https://github.com/Softcadbury/softcadbury.github.io/blob/main/examples/VersionedStoredProcedures/VersionedStoredProcedures/Contexts/Context.cs">EF context</a> and an <a href="https://github.com/Softcadbury/softcadbury.github.io/blob/main/examples/VersionedStoredProcedures/VersionedStoredProcedures/Entities/Item.cs">entity</a>
+You can find the full project used as example [here](https://github.com/Softcadbury/softcadbury.github.io/tree/main/examples/VersionizedStoredProcedures).
+
+### Create the EF context and an entity
+
+Create the [EF context](https://github.com/Softcadbury/softcadbury.github.io/blob/main/examples/VersionizedStoredProcedures/VersionizedStoredProcedures/Contexts/Context.cs).
 
 {% highlight csharp %}
 public class Context : DbContext
@@ -63,6 +66,8 @@ public class Context : DbContext
     public DbSet<Item> Items { get; set; } = null!;
 }
 {% endhighlight %}
+
+And an [entity](https://github.com/Softcadbury/softcadbury.github.io/blob/main/examples/VersionizedStoredProcedures/VersionizedStoredProcedures/Entities/Item.cs)
 
 {% highlight csharp %}
 public class Item
@@ -78,9 +83,9 @@ public class Item
 }
 {% endhighlight %}
 
-### Create the <a href="https://github.com/Softcadbury/softcadbury.github.io/blob/main/examples/VersionedStoredProcedures/VersionedStoredProcedures/StoredProcedures/StoredProcedures.cs">stored procedure enumeration</a>
+### Create the stored procedures enumeration
 
-Create an enumeration listing all your stored procedures.
+Create an [enumeration](https://github.com/Softcadbury/softcadbury.github.io/blob/main/examples/VersionizedStoredProcedures/VersionizedStoredProcedures/StoredProcedures/StoredProcedures.cs) listing all your stored procedures.
 
 {% highlight csharp %}
 internal enum StoredProcedures
@@ -90,11 +95,11 @@ internal enum StoredProcedures
 }
 {% endhighlight %}
 
-### Create the <a href="https://github.com/Softcadbury/softcadbury.github.io/tree/main/examples/VersionedStoredProcedures/VersionedStoredProcedures/StoredProcedures/StoredProcedures">stored procedure SQL files</a>
+### Create the stored procedures SQL file
 
-Create the SQL files containing the code of the stored procedures. Theses files must respect a few rules:
+Create the [SQL files](https://github.com/Softcadbury/softcadbury.github.io/tree/main/examples/VersionizedStoredProcedures/VersionizedStoredProcedures/StoredProcedures/StoredProcedures) containing the code of the stored procedures. Theses files must respect a few rules:
 
--   Files must be stored in the same folder as the enumeration StoredProcedures.cs (this is important for MigrationBuilderExtensions.CreateStoredProcedure() which have to know where to retrieve these files)
+-   Files must be stored in the same folder as the enumeration StoredProcedures.cs (this is important to automatically detect these files)
     -   /StoredProcedures.cs
     -   /StoredProcedures/*.sql
 
@@ -103,7 +108,7 @@ Create the SQL files containing the code of the stored procedures. Theses files 
     - GetItems_02.sql
     - etc.
 
--   Files must be embedded resources (you can change that in files properties when using Visual Studio). This will change the csproj file as follow.
+-   Files must be embedded resources (you can change that in the `files properties` window in Visual Studio). This will change the csproj file as follow.
 {% highlight csharp %}
 <ItemGroup>
     <None Remove="StoredProcedures\StoredProcedures\DeleteItems_01.sql" />
@@ -139,7 +144,9 @@ END
 GO
 {% endhighlight %}
 
-### Create and update your stored procedures in your <a href="https://github.com/Softcadbury/softcadbury.github.io/tree/main/examples/VersionedStoredProcedures/VersionedStoredProcedures/Migrations">migrations</a> using these <a href="https://github.com/Softcadbury/softcadbury.github.io/blob/main/examples/VersionedStoredProcedures/VersionedStoredProcedures/Extensions/DbContextExtensions.cs">extentions</a>
+### Create EF migrations to create/update/delete stored procedures
+
+Add these [extentions](https://github.com/Softcadbury/softcadbury.github.io/blob/main/examples/VersionizedStoredProcedures/VersionizedStoredProcedures/Extensions/DbContextExtensions.cs) to your code.
 
 {% highlight csharp %}
 internal static class MigrationBuilderExtensions
@@ -165,6 +172,8 @@ internal static class MigrationBuilderExtensions
     }
 }
 {% endhighlight %}
+
+Then, in your [EF migrations](https://github.com/Softcadbury/softcadbury.github.io/tree/main/examples/VersionizedStoredProcedures/VersionizedStoredProcedures/Migrations), call `migrationBuilder.CreateStoredProcedure` to create or update stored procedures and `migrationBuilder.DropStoredProcedure` to delete them.
 
 {% highlight csharp %}
 public partial class CreateStoredProcedures : Migration
@@ -202,7 +211,9 @@ public partial class UpdateStoredProcedures : Migration
 }
 {% endhighlight %}
 
-### Complete the <a href="https://github.com/Softcadbury/softcadbury.github.io/blob/main/examples/VersionedStoredProcedures/VersionedStoredProcedures/Contexts/Context.cs">EF context</a> to execute your stored procedures using these <a href="https://github.com/Softcadbury/softcadbury.github.io/blob/main/examples/VersionedStoredProcedures/VersionedStoredProcedures/Extensions/DbContextExtensions.cs">extentions</a>
+### Create the EF context to execute your stored procedures
+
+Add these [extentions](https://github.com/Softcadbury/softcadbury.github.io/blob/main/examples/VersionizedStoredProcedures/VersionizedStoredProcedures/Contexts/Context.cs) to your code.
 
 {% highlight csharp %}
 internal static class DbContextExtensions
@@ -225,6 +236,8 @@ internal static class DbContextExtensions
     }
 }
 {% endhighlight %}
+
+Then, in your [EF context](https://github.com/Softcadbury/softcadbury.github.io/blob/main/examples/VersionizedStoredProcedures/VersionizedStoredProcedures/Contexts/Context.cs) (or a dedicated repository), call `this.ExecuteStoredProcedure` to execute stored procedures or `this.ExecuteStoredProcedure<T>` to execute stored procedures with an expected result.
 
 {% highlight csharp %}
 public class Context : DbContext
@@ -250,4 +263,4 @@ public class Context : DbContext
 
 ## Feedbacks
 
-If you have any comments, please feel free to create an issue <a href="https://github.com/Softcadbury/softcadbury.github.io/issues">here</a>
+If you have any comments, please feel free to create an issue [here](https://github.com/Softcadbury/softcadbury.github.io/issues)

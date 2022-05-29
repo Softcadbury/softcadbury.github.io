@@ -1,10 +1,10 @@
 ﻿#nullable disable
 
-namespace VersionedStoredProcedures.Migrations;
+namespace VersionizedStoredProcedures.Migrations;
 
 using Microsoft.EntityFrameworkCore.Migrations;
-using VersionedStoredProcedures.Extensions;
-using VersionedStoredProcedures.StoredProcedures;
+using VersionizedStoredProcedures.Extensions;
+using VersionizedStoredProcedures.StoredProcedures;
 
 public partial class UpdateStoredProcedures : Migration
 {

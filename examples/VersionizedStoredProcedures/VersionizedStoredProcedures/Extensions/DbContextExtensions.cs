@@ -1,8 +1,8 @@
-﻿namespace VersionedStoredProcedures.Extensions;
+﻿namespace VersionizedStoredProcedures.Extensions;
 
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using VersionedStoredProcedures.StoredProcedures;
+using VersionizedStoredProcedures.StoredProcedures;
 
 internal static class DbContextExtensions
 {
