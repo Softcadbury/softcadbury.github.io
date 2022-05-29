@@ -1,0 +1,1 @@
+## Example for <a href="https://softcadbury.github.io/dotnet/ef/2022/05/10/versioned-stored-procedues-with-ef.html">Versioned stored procedues with Entity Framework</a> article.
