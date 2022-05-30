@@ -10,17 +10,17 @@ comments: true
 
 [EF](https://docs.microsoft.com/en-us/ef/) is a fantastic .Net library developed by Microsoft that allows your applications to interact with databases.
 
-One of the best feature of the library is the possibility to [versionize](https://docs.microsoft.com/en-us/ef/core/managing-schemas/) your database. The way it works is simple, you create classes that will represent your database tables, then generate a [migration](https://docs.microsoft.com/en-us/ef/core/managing-schemas/migrations). Once you run this migration, your database schema will be updated accordingly.
+One of the best features of the library is the possibility to [versionize](https://docs.microsoft.com/en-us/ef/core/managing-schemas/) your database. The way it works is simple, you create classes that will represent your database tables, then generate a [migration](https://docs.microsoft.com/en-us/ef/core/managing-schemas/migrations). Once you run this migration, your database schema will be updated accordingly.
 
-In addition to this migration feature, EF provides methods to create, update and delete entities easily. Unfortunatly, nothing's perfect, an EF can suffer performance problems if you want do to complex tasks like doing bulk modifications or requests with many condiditions.
+In addition to this migration feature, EF provides methods to create, update and delete entities easily. Unfortunately, nothing's perfect, and EF can suffer performance problems if you want do to complex tasks like doing bulk modifications or requests with many condiditions.
 
 To resolve these performance problems, you can use additional libraries like [this one](https://entityframework-extensions.net/bulk-insert), but for more specific cases, you will need a native SQL solution, like [stored procedures](https://docs.microsoft.com/en-us/sql/relational-databases/stored-procedures/create-a-stored-procedure?view=sql-server-ver16).
 
 ## Stored procedures in EF
 
-With EF, it's pretty easy to execute stored procedure. The complexity lies in how to versionize these stored procedures because EF doesn't provide a native solution.
+With EF, it's pretty easy to execute stored procedures. The complexity lies in how to versionize these stored procedures because EF doesn't provide a native solution.
 
-EF migrations allows you to exceture raw SQL, so you can just copy/past the code of your stored procedures. Here's an example found [on the web](https://dotnetthoughts.net/creating-stored-procs-in-efcore-migrations):
+EF migrations allows you to execute raw SQL, so you can just copy/paste the code of your stored procedures. Here's an example found [on the web](https://dotnetthoughts.net/creating-stored-procs-in-efcore-migrations):
 {% highlight csharp %}
 public partial class GetAllTodoItemsByStatusProc : Migration
 {
@@ -38,11 +38,11 @@ public partial class GetAllTodoItemsByStatusProc : Migration
 }
 {% endhighlight %}
 
-⛔ Unfortunatly, there are many drawbacks to doing this:
+⛔ Unfortunately, there are many drawbacks to doing this:
 
 -   It is just a string, so no SQL highlighting.
 -   It is easy to do a mistake when copying the code (especially when you want to update the code of an existing stored procedure).
--   When updating the code of a stored procedure, it's hard to see modifications with GIT (no great for people doing reviews).
+-   When updating the code of a stored procedure, it's hard to see what changed. You can't really use a diff tool (not great for people doing reviews).
 
 In the following section, I will show you how I handle this in my projects.
 
@@ -146,7 +146,7 @@ GO
 
 ### Create EF migrations to create/update/delete stored procedures
 
-Add these [extentions](https://github.com/Softcadbury/softcadbury.github.io/blob/main/examples/VersionizedStoredProcedures/VersionizedStoredProcedures/Extensions/DbContextExtensions.cs) to your code.
+Add these [extensions](https://github.com/Softcadbury/softcadbury.github.io/blob/main/examples/VersionizedStoredProcedures/VersionizedStoredProcedures/Extensions/DbContextExtensions.cs) to your code.
 
 {% highlight csharp %}
 internal static class MigrationBuilderExtensions
@@ -213,7 +213,7 @@ public partial class UpdateStoredProcedures : Migration
 
 ### Update the EF context to execute your stored procedures
 
-Add these [extentions](https://github.com/Softcadbury/softcadbury.github.io/blob/main/examples/VersionizedStoredProcedures/VersionizedStoredProcedures/Contexts/Context.cs) to your code.
+Add these [extensions](https://github.com/Softcadbury/softcadbury.github.io/blob/main/examples/VersionizedStoredProcedures/VersionizedStoredProcedures/Contexts/Context.cs) to your code.
 
 {% highlight csharp %}
 internal static class DbContextExtensions
