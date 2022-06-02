@@ -1,14 +1,8 @@
-﻿IF OBJECT_ID('dbo.DeleteItems', 'P') IS NOT NULL
-	DROP PROCEDURE dbo.DeleteItems
-GO
-
-CREATE PROCEDURE dbo.DeleteItems
-
+﻿CREATE OR ALTER PROCEDURE dbo.DeleteItems
 AS
 BEGIN
     SET NOCOUNT ON;
 
 	DELETE FROM ITEMS
-
 END
 GO

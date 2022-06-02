@@ -125,13 +125,8 @@ Create the [SQL files](https://github.com/Softcadbury/softcadbury.github.io/tree
 
 -   SQL scripts must be reusable to simplify new versions of these scripts, so always drop stored procedures if already created.
 {% highlight sql %}
-IF OBJECT_ID('dbo.GetItems', 'P') IS NOT NULL
-	DROP PROCEDURE dbo.GetItems
-GO
-
-CREATE PROCEDURE dbo.GetItems
+CREATE OR ALTER PROCEDURE dbo.GetItems
 	@label VARCHAR(max)
-
 AS
 BEGIN
     SET NOCOUNT ON;
@@ -139,7 +134,6 @@ BEGIN
 	SELECT Id, Label
 	FROM Items
 	WHERE label = @label
-
 END
 GO
 {% endhighlight %}
